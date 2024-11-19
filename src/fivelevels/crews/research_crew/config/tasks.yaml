@@ -6,12 +6,10 @@ research_task:
     to the source material that would explain that term for further investigation.
 
     Your final response must include:
-    - title: A title for the research report
-    - findings: A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
+    - content: A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
     - key_terms: A list of key terms with definitions and links to the source material.
 
   expected_output: >
-    title: A title for the research report
-    findings: A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
+    content: A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
     key_terms: A list of key terms with definitions and links to the source material.
   agent: researcher

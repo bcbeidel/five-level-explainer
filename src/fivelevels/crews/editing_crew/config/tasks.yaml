@@ -6,21 +6,17 @@ editing_task:
     If any analogies or examples are used, ensure they are accurate and easy to understand.
 
     Draft Content To Edit & Fact Check:
-    {draft_post}
+    {content}
 
     Supporting Research Material:
-    {supporting_research}
+    {research_report}
 
     Your final response must include:
-    - title: The title of the post
-    - content: The unedited content of the post
-    - is_valid: True/False
+    - is_valid: True/False (boolean) if the content is accurate and ready for publication
     - feedback: Provide commentary if the post fails any of the guidelines.
 
   expected_output: >
-    title: The title of the post
-    content: The unedited content of the post
     is_valid: true/false if the content is accurate and ready for publication
-    feedback: Commentary here if failed.
+    feedback: Commentary here if the draft_content failed any of the guidelines
 
   agent: editor

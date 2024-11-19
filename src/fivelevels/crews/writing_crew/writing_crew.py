@@ -1,47 +1,40 @@
-from typing import Optional
+from pydantic import BaseModel
 
 from crewai import Agent, Crew, Process, Task
 from crewai.project import CrewBase, agent, crew, task
-from pydantic import BaseModel
-from crewai_tools import (
-    SerperDevTool,
-    WebsiteSearchTool,
-)
 
-class ReviewedPost(BaseModel):
-	is_valid: bool
-	feedback: Optional[str]
+class DraftPost(BaseModel):
+    title: str
+    content: str
 
 @CrewBase
-class EditingCrew():
-	"""editing crew"""
+class WritingCrew():
+	"""fivelevels crew"""
 
 	agents_config = 'config/agents.yaml'
 	tasks_config = 'config/tasks.yaml'
 
+
 	@agent
-	def editor(self) -> Agent:
+	def writer(self) -> Agent:
 		return Agent(
-			config=self.agents_config['editor'],
-			tools=[
-				SerperDevTool(),
-				WebsiteSearchTool()
-			],
+			config=self.agents_config['writer'],
 			verbose=True,
+			tools=[],
 			llm='gpt-4o-mini'
 		)
 
 	@task
-	def editing_task(self) -> Task:
+	def draft_content_task(self) -> Task:
 		return Task(
-			config=self.tasks_config['editing_task'],
-			output_pydantic=ReviewedPost
+			config=self.tasks_config['draft_content_task'],
+			context=[self.research_task()],
+			output_pydantic=DraftPost
 		)
-	
 
 	@crew
 	def crew(self) -> Crew:
-		"""Creates the editing crew"""
+		"""Creates the Writing crew"""
 		return Crew(
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator

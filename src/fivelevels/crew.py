@@ -6,7 +6,6 @@ from crewai_tools import (
     SerperDevTool,
     WebsiteSearchTool,
 	FileWriterTool,
-	TXTSearchTool,
 )
 
 # Uncomment the following line to use an example of a custom tool

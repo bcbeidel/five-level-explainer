@@ -9,8 +9,7 @@ from crewai_tools import (
 )
 
 class ResearchReport(BaseModel):
-    title: str
-    findings: str
+    content: str
     key_terms: str
 
 @CrewBase
@@ -33,6 +32,7 @@ class ResearchCrew():
 	def research_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['research_task'],
+			output_pydantic=ResearchReport,
 		)
 
 	@crew
