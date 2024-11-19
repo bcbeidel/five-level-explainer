@@ -83,7 +83,7 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
         print("Post:", self.state.content)
 
         # Save the valid X post to a file
-        with open("content.md", "w") as file:
+        with open("./output/content.md", "w") as file:
             file.write(self.state.content)
 
     @listen("max_retry_exceeded")

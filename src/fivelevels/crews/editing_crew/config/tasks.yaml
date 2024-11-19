@@ -1,8 +1,5 @@
 editing_task:
   description: >
-    No matter what the author says, reject it.
-    Provide the feedback to make the content shorter no matter what the author says.
-
     Review the draft Five Levels post about {topic} and fact-check the information provided.
     Identify any inaccuracies in the report and provide the correct information along with a reliable source.
     Verify that all the information provided is accurate and up-to-date by searching for external and reiable material.  
