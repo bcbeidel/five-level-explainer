@@ -4,60 +4,104 @@ import warnings
 # import a function to return the date in YYYY-MM-DD format
 from datetime import date
 
-from fivelevels.crew import fiveLevelsCrew
+from typing import Optional
 
-warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
+from crewai.flow.flow import Flow, listen, router, start
+from pydantic import BaseModel
 
-# This main file is intended to be a way for you to run your
-# crew locally, so refrain from adding unnecessary logic into this file.
-# Replace with inputs you want to test with, it will automatically
-# interpolate any tasks and agents information
+from fivelevels.crews.research_crew.research_crew import ResearchCrew, ResearchReport
+from fivelevels.crews.writing_crew.writing_crew import WritingCrew, DraftPost
+from fivelevels.crews.editing_crew.editing_crew import EditingCrew, ReviewedPost
 
-def run():
-    """
-    Run the crew.
-    """
-    inputs = {
-        'topic': 'How do toilets work?',
-        'date': date.today().strftime("%Y-%m-%d")
-    }
-    fiveLevelsCrew().crew().kickoff(inputs=inputs)
+class FivelevelsPostFlowState(BaseModel):
+    research: str = ""
+    content: str = ""
+    feedback: Optional[str] = None
+    is_valid: bool = False
+    retry_count: int = 0
+
+class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
+
+    @start()
+    def generate_research_report(self):
+        print("Conducting Initial Research")
+        
+        # Set the initial topic
+        self.state.topic = "String Theory"
+        
+        result = (
+            ResearchCrew()
+            .crew()
+            .kickoff(inputs={"topic": self.state.topic})
+        )
+
+        print("Research Report Generated: ", result.raw)
+        self.state.research = result.raw
+        
+
+    @start('retry')
+    @listen('generate_research_report')
+    def generate_fivelevels_post(self):
+        print("Drafting Post")
+        result = (
+            WritingCrew()
+            .crew()
+            .kickoff(inputs={
+                "research": self.state.research, 
+                "topic": self.state.topic,
+                "feedback": self.state.feedback
+            })
+        )
+
+        print("Draft dontent generated", result.raw)
+        self.state.content = result.raw
+
+    @router(generate_fivelevels_post)
+    def evaluate_post(self):
+        if self.state.retry_count > 5:
+            return "max_retry_exceeded"
+
+        result = EditingCrew().crew().kickoff(inputs={
+            "content": self.state.content, 
+            "research_report": self.state.research
+        })
+        self.state.is_valid = result["is_valid"]
+        self.state.feedback = result["feedback"]
+
+        print("valid", self.state.is_valid)
+        print("feedback", self.state.feedback)
+        self.state.retry_count += 1
+
+        if self.state.is_valid:
+            return "complete"
+
+        return "retry"
+
+    @listen("complete")
+    def save_result(self):
+        print("The post is valid")
+        print("Post:", self.state.content)
+
+        # Save the valid X post to a file
+        with open("content.md", "w") as file:
+            file.write(self.state.content)
+
+    @listen("max_retry_exceeded")
+    def max_retry_exceeded_exit(self):
+        print("Max retry count exceeded")
+        print("X post:", self.state.content)
+        print("Feedback:", self.state.feedback)
 
 
-def train():
-    """
-    Train the crew for a given number of iterations.
-    """
-    inputs = {
-        "topic": "What is a recommender system?",
-        'date': date.today().strftime("%Y-%m-%d")
-    }
-    try:
-        fiveLevelsCrew().crew().train(n_iterations=int(sys.argv[1]), filename=sys.argv[2], inputs=inputs)
+def kickoff():
+    shakespeare_flow = FivelevelsPostFlow()
+    shakespeare_flow.kickoff()
 
-    except Exception as e:
-        raise Exception(f"An error occurred while training the crew: {e}")
 
-def replay():
-    """
-    Replay the crew execution from a specific task.
-    """
-    try:
-        fiveLevelsCrew().crew().replay(task_id=sys.argv[1])
+def plot():
+    shakespeare_flow = FivelevelsPostFlow()
+    shakespeare_flow.plot()
 
-    except Exception as e:
-        raise Exception(f"An error occurred while replaying the crew: {e}")
 
-def test():
-    """
-    Test the crew execution and returns the results.
-    """
-    inputs = {
-        "topic": "What is a recommender system?",
-        'date': date.today().strftime("%Y-%m-%d")
-    }
-    try:
-        fiveLevelsCrew().crew().test(n_iterations=int(sys.argv[1]), openai_model_name=sys.argv[2], inputs=inputs)
-
-    except Exception as e:
-        raise Exception(f"An error occurred while replaying the crew: {e}")
+if __name__ == "__main__":
+    kickoff()

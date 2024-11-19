@@ -2,7 +2,7 @@ draft_content_task:
   description: >
     Write a draft post in the style of 5 Levels (https://www.wired.com/video/series/5-levels) about '{topic}' 
     that is clear, concise, and engaging. The post should be written in a way that is easy to understand 
-    for someone who is new to '{topic}''. 
+    for someone who is new to '{topic}'. 
     
     Specifically, it should be broken down into sections with clear headings and bullet points exaplaining the main topics
     at the following levels:
@@ -21,12 +21,8 @@ draft_content_task:
     Please incoporate feedback if present.
     {feedback}
 
-    Your final response must include:
-    - title: The title of the post
-    - content: The draft post content
-    
   expected_output: >
-    title: The title of the post
-    content: The draft post content
+    The content that explains the concept of '{topic}' in a clear, concise, and engaging way.
+    The content broken down into sections explained at each level.
 
   agent: writer
