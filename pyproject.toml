@@ -9,11 +9,8 @@ dependencies = [
 ]
 
 [project.scripts]
-fivelevels = "fivelevels.main:run"
-run_crew = "fivelevels.main:run"
-train = "fivelevels.main:train"
-replay = "fivelevels.main:replay"
-test = "fivelevels.main:test"
+kickoff = "fivelevels.main:kickoff"
+plot = "fivelevels.main:plot"
 
 [build-system]
 requires = ["hatchling"]

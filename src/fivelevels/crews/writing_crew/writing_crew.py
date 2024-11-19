@@ -28,7 +28,6 @@ class WritingCrew():
 	def draft_content_task(self) -> Task:
 		return Task(
 			config=self.tasks_config['draft_content_task'],
-			context=[self.research_task()],
 			output_pydantic=DraftPost
 		)
 

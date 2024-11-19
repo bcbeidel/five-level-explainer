@@ -5,11 +5,10 @@ research_task:
     as well as any links to the source material. For key terms, be certain to provide a definition and a link 
     to the source material that would explain that term for further investigation.
 
-    Your final response must include:
-    - content: A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
-    - key_terms: A list of key terms with definitions and links to the source material.
+   
 
   expected_output: >
-    content: A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
-    key_terms: A list of key terms with definitions and links to the source material.
+    A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
+    It should include a list of key terms with definitions and links to the source material.
+    The document should be formated in markdown and should not use '`' characters.
   agent: researcher

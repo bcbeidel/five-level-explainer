@@ -14,6 +14,7 @@ from fivelevels.crews.writing_crew.writing_crew import WritingCrew, DraftPost
 from fivelevels.crews.editing_crew.editing_crew import EditingCrew, ReviewedPost
 
 class FivelevelsPostFlowState(BaseModel):
+    topic: str = ""
     research: str = ""
     content: str = ""
     feedback: Optional[str] = None
@@ -27,12 +28,12 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
         print("Conducting Initial Research")
         
         # Set the initial topic
-        self.state.topic = "String Theory"
+        self.state.topic = "Why are Drake and Kendrick Lamar Fighting?"
         
         result = (
             ResearchCrew()
             .crew()
-            .kickoff(inputs={"topic": self.state.topic})
+            .kickoff(inputs={"topic": self.state.topic, 'date': date.today().strftime("%Y-%m-%d")})
         )
 
         print("Research Report Generated: ", result.raw)
@@ -62,6 +63,7 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
             return "max_retry_exceeded"
 
         result = EditingCrew().crew().kickoff(inputs={
+            "topic": self.state.topic,
             "content": self.state.content, 
             "research_report": self.state.research
         })
@@ -94,13 +96,13 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
 
 
 def kickoff():
-    shakespeare_flow = FivelevelsPostFlow()
-    shakespeare_flow.kickoff()
+    fivelevelsflow = FivelevelsPostFlow()
+    fivelevelsflow.kickoff()
 
 
 def plot():
-    shakespeare_flow = FivelevelsPostFlow()
-    shakespeare_flow.plot()
+    fivelevelsflow = FivelevelsPostFlow()
+    fivelevelsflow.plot()
 
 
 if __name__ == "__main__":
