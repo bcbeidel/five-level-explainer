@@ -4,60 +4,14 @@ research_task:
     the current date is {date}.  Ensure you provide a list of the most relevant information about {topic} 
     as well as any links to the source material. For key terms, be certain to provide a definition and a link 
     to the source material that would explain that term for further investigation.
+
+    Your final response must include:
+    - title: A title for the research report
+    - findings: A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
+    - key_terms: A list of key terms with definitions and links to the source material.
+
   expected_output: >
-    A document between 1000 and 2500 words long, providing data points of the most relevant information about {topic} and links to the source material.
-    Organized into sections with clear headings.
-    Formatted as markdown without '```'
+    title: A title for the research report
+    findings: A document no more than 5000 words long, providing data points of the most relevant information about {topic} and links to the source material.
+    key_terms: A list of key terms with definitions and links to the source material.
   agent: researcher
-
-draft_post_task:
-  description: >
-    Write a draft post in the style of 5 Levels (https://www.wired.com/video/series/5-levels) about {topic} that is clear, concise, and engaging. 
-    The post should be written in a way that is easy to understand for someone who is new to {topic}. 
-    
-    Specifically, it should be broken down into sections with clear headings and bullet points.
-    - Level 1: Can you explain it to a child?
-    - Level 2: Can you explain it to a teenager?
-    - Level 3: Can you explain it to an undergrad?
-    - Level 4: Can you explain it to a grad student?
-    - Level 5: Can you explain it to a college, an expert scientist?
-
-    Last, include any key terms or concepts that are important to understand the topic with definition.
-    
-  expected_output: >
-    A fully fledge reports with the mains topics, each with a full section of information.
-    Formatted as markdown without '```'
-  agent: education_writer
-
-fact_check_task:
-  description: >
-    Review the draft Five Levels post about {topic} and fact-check the information provided.
-    Identify any inaccuracies in the report and provide the correct information along with a reliable source.
-    Verify that all the information provided is accurate and up-to-date by searching for external and reiable material.  
-    If any analogies or examples are used, ensure they are accurate and easy to understand.
-  expected_output: >
-    A list of all the inaccuracies found in the report, along with the correct information, 
-    an exceprt from the source, and a link to the source material.
-    Formatted as markdown without '```'
-  agent: fact_checker
-
-finalize_post_task:
-  description: >
-    Review the draft a 5 levels post about {topic} and make any necessary edits to ensure it is clear, concise, and engaging.
-    Ensure that the post is easy to understand for someone who is new to {topic} and that it is free of any inaccuracies.
-    Make sure that the post is well-organized with clear headings and bullet points.
-
-    Be sure to maintain the same structure followin the 5 levels format:
-    - Level 1: Can you explain it to a child?
-    - Level 2: Can you explain it to a teenager?
-    - Level 3: Can you explain it to an undergrad?
-    - Level 4: Can you explain it to a grad student?
-    - Level 5: Can you explain it to a college, an expect scientist?
-
-    Last, include any key terms or concepts that are important to understand the topic with definition. with links to the source material that would explain that term.
-
-
-  expected_output: >
-    A final version of the Five Levels post about {topic} that is clear, concise, and engaging.
-    Formatted as markdown without '```'
-  agent: education_writer
