@@ -1,0 +1,16 @@
+fact_check_task:
+  description: >
+    Review the draft Five Levels post about {topic} and fact-check the information provided.
+    Identify any inaccuracies in the report and provide the correct information along with a reliable source.
+    Verify that all the information provided is accurate and up-to-date by searching for external and reiable material.  
+    If any analogies or examples are used, ensure they are accurate and easy to understand.
+
+    Draft Content To Fact Check:
+    {draft_post}
+
+    Supporting Research Material:
+    {research_material}
+
+  expected_output: >
+    
+  agent: editor
