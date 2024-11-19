@@ -9,11 +9,11 @@ from typing import Optional
 from crewai.flow.flow import Flow, listen, router, or_, start
 from pydantic import BaseModel
 
-from fivelevels.crews.research_crew.research_crew import ResearchCrew, ResearchReport
-from fivelevels.crews.writing_crew.writing_crew import WritingCrew, DraftPost
-from fivelevels.crews.editing_crew.editing_crew import EditingCrew, ReviewedPost
+from five_level_explainer.crews.research_crew.research_crew import ResearchCrew, ResearchReport
+from five_level_explainer.crews.writing_crew.writing_crew import WritingCrew, DraftPost
+from five_level_explainer.crews.editing_crew.editing_crew import EditingCrew, ReviewedPost
 
-class FivelevelsPostFlowState(BaseModel):
+class FiveLevelExplainerFlowState(BaseModel):
     topic: str = ""
     research: str = ""
     content: str = ""
@@ -21,7 +21,7 @@ class FivelevelsPostFlowState(BaseModel):
     is_valid: bool = False
     retry_count: int = 0
 
-class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
+class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
 
     @start()
     def generate_research_report(self):
@@ -41,7 +41,7 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
 
     
     @listen(or_(generate_research_report, 'retry'))
-    def generate_fivelevels_post(self):
+    def generate_five_level_explination(self):
         print("Drafting Post")
         result = (
             WritingCrew()
@@ -55,8 +55,8 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
 
         self.state.content = result.raw
 
-    @router(generate_fivelevels_post)
-    def evaluate_post(self):
+    @router(generate_five_level_explination)
+    def evaluate_explanation(self):
         if self.state.retry_count > 5:
             return "max_retry_exceeded"
 
@@ -94,13 +94,13 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
 
 
 def kickoff():
-    fivelevelsflow = FivelevelsPostFlow()
-    fivelevelsflow.kickoff()
+    five_level_flow = FiveLevelExplainerFlow()
+    five_level_flow.kickoff()
 
 
 def plot():
-    fivelevelsflow = FivelevelsPostFlow()
-    fivelevelsflow.plot()
+    five_level_flow = FiveLevelExplainerFlow()
+    five_level_flow.plot()
 
 
 if __name__ == "__main__":

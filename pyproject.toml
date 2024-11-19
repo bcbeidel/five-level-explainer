@@ -1,7 +1,7 @@
 [project]
-name = "fivelevels"
+name = "five_level_explainer"
 version = "0.1.0"
-description = "fivelevels using crewAI"
+description = "five_level_explainer using crewAI"
 authors = [{ name = "Brandon Beidel", email = "bcbeidel@gmail.com" }]
 requires-python = ">=3.10,<=3.13"
 dependencies = [
@@ -9,8 +9,8 @@ dependencies = [
 ]
 
 [project.scripts]
-kickoff = "fivelevels.main:kickoff"
-plot = "fivelevels.main:plot"
+kickoff = "five_level_explainer.main:kickoff"
+plot = "five_level_explainer.main:plot"
 
 [build-system]
 requires = ["hatchling"]
