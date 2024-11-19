@@ -23,7 +23,7 @@ class ResearchCrew():
 	def researcher(self) -> Agent:
 		return Agent(
 			config=self.agents_config['researcher'],
-			verbose=True,
+			verbose=False,
 			tools=[SerperDevTool(), WebsiteSearchTool()],
 			llm='gpt-4o-mini'
 		)
@@ -42,5 +42,5 @@ class ResearchCrew():
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
 			process=Process.sequential,
-			verbose=True,
+			verbose=False,
 		)

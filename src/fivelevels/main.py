@@ -6,7 +6,7 @@ from datetime import date
 
 from typing import Optional
 
-from crewai.flow.flow import Flow, listen, router, start
+from crewai.flow.flow import Flow, listen, router, or_, start
 from pydantic import BaseModel
 
 from fivelevels.crews.research_crew.research_crew import ResearchCrew, ResearchReport
@@ -28,7 +28,7 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
         print("Conducting Initial Research")
         
         # Set the initial topic
-        self.state.topic = "Why are Drake and Kendrick Lamar Fighting?"
+        self.state.topic = "Why are Martha Steward and Ina Garten fighting?"
         
         result = (
             ResearchCrew()
@@ -36,12 +36,11 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
             .kickoff(inputs={"topic": self.state.topic, 'date': date.today().strftime("%Y-%m-%d")})
         )
 
-        print("Research Report Generated: ", result.raw)
         self.state.research = result.raw
         
 
-    @start('retry')
-    @listen('generate_research_report')
+    
+    @listen(or_(generate_research_report, 'retry'))
     def generate_fivelevels_post(self):
         print("Drafting Post")
         result = (
@@ -54,7 +53,6 @@ class FivelevelsPostFlow(Flow[FivelevelsPostFlowState]):
             })
         )
 
-        print("Draft dontent generated", result.raw)
         self.state.content = result.raw
 
     @router(generate_fivelevels_post)
