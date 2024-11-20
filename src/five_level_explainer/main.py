@@ -11,9 +11,10 @@ from typing import Optional, Dict, Any
 from crewai.flow.flow import Flow, listen, router, or_, start
 from pydantic import BaseModel
 
-from five_level_explainer.crews.research_crew.research_crew import ResearchCrew, ResearchReport
-from five_level_explainer.crews.writing_crew.writing_crew import WritingCrew, DraftPost
-from five_level_explainer.crews.editing_crew.editing_crew import EditingCrew, ReviewedPost
+from five_level_explainer.crews.research_crew.research_crew import ResearchCrew
+from five_level_explainer.crews.writing_crew.writing_crew import WritingCrew
+from five_level_explainer.crews.editing_crew.editing_crew import EditingCrew
+from five_level_explainer.crews.publish_crew.publish_crew import PublishCrew
 
 class FiveLevelExplainerFlowState(BaseModel):
     topic: str = None
@@ -72,23 +73,33 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
         self.state.retry_count += 1
 
         if self.state.is_valid:
-            return "complete"
+            return "publish"
 
         return "retry"
+    
+    @listen("publish")
+    def generate_file_name(self):
+        result = PublishCrew().crew().kickoff(inputs={
+            "topic": self.state.topic,
+            "content": self.state.content, 
+            "date": self.state.date
+        })
 
-    @listen("complete")
+        self.state.file_name = result['file_name']
+
+    @listen("generate_file_name")
     def save_result(self):
         print("The post is valid")
         print("Post:", self.state.content)
 
         # Save the valid X post to a file
-        with open("./output/content.md", "w") as file:
+        with open(f"./output/{self.state.file_name}", "w") as file:
             file.write(self.state.content)
 
     @listen("max_retry_exceeded")
     def max_retry_exceeded_exit(self):
         print("Max retry count exceeded")
-        print("X post:", self.state.content)
+        print("Content:", self.state.content)
         print("Feedback:", self.state.feedback)
 
 
