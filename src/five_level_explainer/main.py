@@ -17,13 +17,14 @@ from five_level_explainer.crews.editing_crew.editing_crew import EditingCrew
 from five_level_explainer.crews.publish_crew.publish_crew import PublishCrew
 
 class FiveLevelExplainerFlowState(BaseModel):
-    topic: str = None
+    topic: str = 'Why is the sky blue?'
     date: str = date.today().strftime("%Y-%m-%d")
     research: str = ""
     content: str = ""
     feedback: Optional[str] = None
     is_valid: bool = False
     retry_count: int = 0
+    file_name: str = ""
 
 class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
 
@@ -65,11 +66,10 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
             "content": self.state.content, 
             "research_report": self.state.research
         })
-        self.state.is_valid = result["is_valid"]
-        self.state.feedback = result["feedback"]
-
-        print("valid", self.state.is_valid)
-        print("feedback", self.state.feedback)
+        self.state.is_valid, self.state.feedback = result["is_valid"], result["feedback"]
+        
+        print(f"valid: {self.state.is_valid}")
+        print(f"feedback: {self.state.feedback}")
         self.state.retry_count += 1
 
         if self.state.is_valid:
@@ -140,7 +140,7 @@ def print_missing_env_vars_message(missing_vars):
 def main():
     parser = argparse.ArgumentParser(description='Generate a five-level explanation for any topic')
     parser.add_argument('topic', type=str, nargs='?', 
-                       default='Why is the sky blue?',
+                       default=FiveLevelExplainerFlowState().topic,
                        help='The topic to explain')
     
     args = parser.parse_args()
