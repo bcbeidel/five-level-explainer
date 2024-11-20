@@ -831,7 +831,7 @@ wheels = [
 ]
 
 [[package]]
-name = "fivelevels"
+name = "five-level-explainer"
 version = "0.1.0"
 source = { editable = "." }
 dependencies = [

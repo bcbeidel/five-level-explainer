@@ -9,6 +9,7 @@ dependencies = [
 ]
 
 [project.scripts]
+explain = "five_level_explainer.main:main"
 kickoff = "five_level_explainer.main:kickoff"
 plot = "five_level_explainer.main:plot"
 

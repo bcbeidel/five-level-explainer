@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 import sys
 import warnings
+import argparse
+import os
 # import a function to return the date in YYYY-MM-DD format
 from datetime import date
 
-from typing import Optional
+from typing import Optional, Dict, Any
 
 from crewai.flow.flow import Flow, listen, router, or_, start
 from pydantic import BaseModel
@@ -14,7 +16,8 @@ from five_level_explainer.crews.writing_crew.writing_crew import WritingCrew, Dr
 from five_level_explainer.crews.editing_crew.editing_crew import EditingCrew, ReviewedPost
 
 class FiveLevelExplainerFlowState(BaseModel):
-    topic: str = ""
+    topic: str = None
+    date: str = date.today().strftime("%Y-%m-%d")
     research: str = ""
     content: str = ""
     feedback: Optional[str] = None
@@ -25,20 +28,16 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
 
     @start()
     def generate_research_report(self):
-        print("Conducting Initial Research")
-        
-        # Set the initial topic
-        self.state.topic = "Why are Martha Steward and Ina Garten fighting?"
+        print("Conducting Initial Research on topic:", self.state.topic)
+        print(self.state)
         
         result = (
             ResearchCrew()
             .crew()
-            .kickoff(inputs={"topic": self.state.topic, 'date': date.today().strftime("%Y-%m-%d")})
+            .kickoff(inputs={"topic": self.state.topic, 'date': self.state.date})
         )
 
         self.state.research = result.raw
-        
-
     
     @listen(or_(generate_research_report, 'retry'))
     def generate_five_level_explination(self):
@@ -93,15 +92,55 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
         print("Feedback:", self.state.feedback)
 
 
-def kickoff():
-    five_level_flow = FiveLevelExplainerFlow()
-    five_level_flow.kickoff()
-
+def kickoff(topic: str = 'Why are Martha Stewart and Ina Garten fighting?'):
+    inputs = {'topic': topic}
+    FiveLevelExplainerFlow().kickoff(inputs)
 
 def plot():
-    five_level_flow = FiveLevelExplainerFlow()
-    five_level_flow.plot()
+    FiveLevelExplainerFlow().plot()
+    
+def check_required_env_vars() -> list[str]:
+    required_env_vars = {
+        'OPENAI_API_KEY': 'OpenAI API key',
+        'SERPER_API_KEY': 'Serper API key'
+    }
+    
+    return [var for var, name in required_env_vars.items() if not os.getenv(var)]
 
+def print_missing_env_vars_message(missing_vars):
+    var_descriptions = {
+        'OPENAI_API_KEY': 'OpenAI API key',
+        'SERPER_API_KEY': 'Serper API key'
+    }
+    
+    message = "Error: Missing required environment variables:\n"
+    for var in missing_vars:
+        message += f"- {var} ({var_descriptions.get(var, '')})\n"
+    
+    message += "\nPlease set these environment variables before running the application.\n"
+    message += "You can set them by:\n"
+    message += "1. Creating a .env file in your project root\n"
+    message += "2. Setting them in your shell:\n"
+    message += "   export OPENAI_API_KEY=your_key_here\n"
+    message += "   export SERPER_API_KEY=your_key_here\n"
+    
+    print(message, end='')
+
+def main():
+    parser = argparse.ArgumentParser(description='Generate a five-level explanation for any topic')
+    parser.add_argument('topic', type=str, nargs='?', 
+                       default='Why is the sky blue?',
+                       help='The topic to explain')
+    
+    args = parser.parse_args()
+    
+    # Check environment variables
+    missing_vars = check_required_env_vars()
+    if missing_vars:
+        print_missing_env_vars_message(missing_vars)
+        sys.exit(1)
+        
+    kickoff(args.topic)
 
 if __name__ == "__main__":
-    kickoff()
+    main()
