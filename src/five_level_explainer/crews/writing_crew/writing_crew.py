@@ -117,5 +117,5 @@ class WritingCrew():
 			tasks=self.tasks, # Automatically created by the @task decorator
 			verbose=True,
 			process=Process.sequential, # In case you wanna use that instead https://docs.crewai.com/how-to/Hierarchical/
-    		planning=True
+    		planning=False
 		)
