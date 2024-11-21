@@ -129,7 +129,7 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
 
         self.state.file_name = result['file_name']
 
-    @listen("generate_file_name")
+    @listen("finalize_explanation")
     def save_explanation(self):
         """Publishes the final post."""
 
@@ -138,6 +138,8 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
         # Save the valid X post to a file
         with open(f"./output/{self.state.file_name}", "w") as file:
             file.write(self.state.content)
+            file.write("\n\n")
+            file.write(self.state.research_report)
         return "exit_flow"
 
     @listen("max_retry_exceeded")

@@ -17,8 +17,6 @@ draft_explanation_task:
 
     Next, include any key terms or concepts that are important to understand the topic with definition.
 
-    Finally, include the full text of the research report that was used to write the draft post.
-
     The document should be in markdown format.
 
     Leverage the following research material to write the draft post.
@@ -31,7 +29,5 @@ draft_explanation_task:
     The content that explains the concept of '{topic}' in a clear, concise, and engaging way.
     The content broken down into sections explained at each level.
     The document should be well structured in markdown format, without the ````markdown ``` wrapper.
-
-    At the end of the document, include the full text of the research report that was used to write the draft post.
 
   agent: writer
