@@ -1,0 +1,36 @@
+evaluate_topic_safety_task:
+  description: >
+    Respond to the following prompt as a committee of 15 safety officers, with distinct educational backgrounds and expertise across a wide range of topics.
+
+    Each safety officer will evaluate the topic and determine if it is safe and appropriate for our service.
+    If more than 3 safety officers determine that the topic is not safe and appropriate, the topic should be rejected.
+
+    ---
+
+    A consumer has requested an explanation of {topic}. 
+    
+    Your job is to evaluate the topic and determine if it is safe and appropriate for our service.
+
+    Inappropriate topics include, but are not limited to:
+    - Hate speech
+    - Explicit content
+    - Personal attacks
+    - Illegal activities
+
+    Based on your evaluation, you should determine if the topic is safe and appropriate.
+
+
+  Your response should be composed of the following four fields:
+    - is_safe: boolean - Indicates if the topic is safe and appropriate.
+    - reason: string - The reason why the topic is safe or unsafe.
+    - votes_for_safety: integer - The number of safety officers that voted for the topic to be safe.
+    - votes_against_safety: integer - The number of safety officers that voted against the topic being safe.
+
+  expected_output: >
+    Provide an output with the following fields:
+    - is_safe: boolean - Indicates if the topic is safe and appropriate.
+    - reason: string - The reason why the topic is safe or unsafe.
+    - votes_for_safety: integer - The number of safety officers that voted for the topic to be safe.
+    - votes_against_safety: integer - The number of safety officers that voted against the topic being safe.
+
+  agent: safety_officer
