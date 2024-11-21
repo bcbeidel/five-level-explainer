@@ -1,113 +1,13 @@
-draft_childrens_content_task:
-  description: >
-    Leveraging the styling of 5 Levels (https://www.wired.com/video/series/5-levels) write about '{topic}' 
-    in a way that is clear, concise, and engaging. Specifically, you are responsible for drafting the 
-    'Level 1: Can you explain it to a child?' section of the post, explaining the topic to an audience of children between the ages of 7 and 12.
-
-    Last, include any key terms or concepts that are important to understand the topic with definition.
-
-    Leverage the following research material to write the draft post.
-    {research}
-
-    Please incorporate feedback if present.
-    {feedback}
-
-  expected_output: >
-    The content that explains the concept of '{topic}' in a clear, concise, and engaging way for children ages 7 to 12.
-    Produce the content in markdown format, with clear headings and subheadings, do not use
-  agent: childrens_writer
-
-draft_teen_content_task:
+draft_explanation_task:
   description: >
     Write a draft post in the style of 5 Levels (https://www.wired.com/video/series/5-levels) about '{topic}' 
     that is clear, concise, and engaging. The post should be written in a way that is easy to understand 
     for someone who is new to '{topic}'. 
+
+    Each of the 5-levels sections of the post should be limited to no more than 100 words.  Supplemental information can be provided in the appendix with more details.
     
-    Specifically, you are responsible for drafting the 'Level 2: Can you explain it to a teenager?' section of the post, 
-    explaining the topic to an audience of teenagers.
-
-    Last, include any key terms or concepts that are important to understand the topic with definition.
-
-    Leverage the following research material to write the draft post.
-    {research}
-
-    Please incorporate feedback if present.
-    {feedback}
-
-  expected_output: >
-    The content that explains the concept of '{topic}' in a clear, concise, and engaging way for teenagers.
-  agent: teen_writer
-
-draft_undergrad_content_task:
-  description: >
-    Write a draft post in the style of 5 Levels (https://www.wired.com/video/series/5-levels) about '{topic}' 
-    that is clear, concise, and engaging. The post should be written in a way that is easy to understand 
-    for someone who is new to '{topic}'. 
-    
-    Specifically, you are responsible for drafting the 'Level 3: Can you explain it to an undergrad?' section of the post, 
-    explaining the topic to an audience of undergraduates.
-
-    Last, include any key terms or concepts that are important to understand the topic with definition.
-
-    Leverage the following research material to write the draft post.
-    {research}
-
-    Please incorporate feedback if present.
-    {feedback}
-
-  expected_output: >
-    The content that explains the concept of '{topic}' in a clear, concise, and engaging way for undergraduates.
-  agent: college_writer
-
-draft_graduate_content_task:
-  description: >
-    Write a draft post in the style of 5 Levels (https://www.wired.com/video/series/5-levels) about '{topic}' 
-    that is clear, concise, and engaging. The post should be written in a way that is easy to understand 
-    for someone who is new to '{topic}'. 
-    
-    Specifically, you are responsible for drafting the 'Level 4: Can you explain it to a grad student?' section of the post, 
-    explaining the topic to an audience of graduate students.
-
-    Last, include any key terms or concepts that are important to understand the topic with definition.
-
-    Leverage the following research material to write the draft post.
-    {research}
-
-    Please incorporate feedback if present.
-    {feedback}
-
-  expected_output: >
-    The content that explains the concept of '{topic}' in a clear, concise, and engaging way for graduate students.
-  agent: graduate_writer
-
-draft_postgrad_content_task:
-  description: >
-    Write a draft post in the style of 5 Levels (https://www.wired.com/video/series/5-levels) about '{topic}' 
-    that is clear, concise, and engaging. The post should be written in a way that is easy to understand 
-    for someone who is new to '{topic}'. 
-    
-    Specifically, you are responsible for drafting the 'Level 5: Can you explain it to a collegue, an expert scientist?' section of the post, 
-    explaining the topic to an audience of PHds and expert scientists.
-
-    Last, include any key terms or concepts that are important to understand the topic with definition.
-
-    Leverage the following research material to write the draft post.
-    {research}
-
-    Please incorporate feedback if present.
-    {feedback}
-
-  expected_output: >
-    The content that explains the concept of '{topic}' in a clear, concise, and engaging way for college students and expert scientists.
-  agent: postgrad_writer
-
-combine_draft_content_task:
-  description: >
-    Inspired by the 5 Levels (https://www.wired.com/video/series/5-levels) video series, your objective is to
-    combine the draft content from the childrens, teen, undergrad, grad, and postgrad writers into a cohesive and comprehensive report.
-    Ensure that the content is accurate, engaging, and informative at each level.
-
-    The structure of the post should follow the 5 Levels format:
+    Specifically, it should be broken down into sections with clear headings and bullet points exaplaining the main topics
+    at the following levels:
 
     - Level 1: Can you explain it to a child?
     - Level 2: Can you explain it to a teenager?
@@ -115,21 +15,19 @@ combine_draft_content_task:
     - Level 4: Can you explain it to a grad student?
     - Level 5: Can you explain it to a college, an expert scientist?
 
-    Combine the draft content from the childrens, teen, undergrad, grad, and postgrad writers into a cohesive and comprehensive report.
-    Ensure that the content is accurate, engaging, and informative at each level.
+    Last, include any key terms or concepts that are important to understand the topic with definition.
 
-    At the end of the post you should include links to reference material and definitions of key terms for further reading.
+    The document should be in markdown format.
 
-    Supporting Research Material:
-    {research}
+    Leverage the following research material to write the draft post.
+    {research_report}
 
-    If provided and relevant, incorporate feedback into the final report.
+    Please incoporate feedback if present.
     {feedback}
 
-    Your outputs should be structured as a markdown file with clear headings and subheadings.
-    Avoid use of '`' and '```' in the markdown file.
-
   expected_output: >
-    The content that explains the concept of '{topic}' in a clear, concise, and engaging way at each level.
-    Written in a cohesive, and organized manner.
-  agent: lead_writer
+    The content that explains the concept of '{topic}' in a clear, concise, and engaging way.
+    The content broken down into sections explained at each level.
+    The document should be in markdown format.
+
+  agent: writer
