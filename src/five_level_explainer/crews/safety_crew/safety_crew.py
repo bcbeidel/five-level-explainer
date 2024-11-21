@@ -7,6 +7,7 @@ class SafetyEvaluation(BaseModel):
     reason: str
     votes_for_safety: int
     votes_against_safety: int
+    key_discussion_points: list[str]
 
 @CrewBase
 class SafetyCrew():
@@ -37,5 +38,5 @@ class SafetyCrew():
 			agents=self.agents, # Automatically created by the @agent decorator
 			tasks=self.tasks, # Automatically created by the @task decorator
 			process=Process.sequential,
-			verbose=False,
+			verbose=True,
 		)

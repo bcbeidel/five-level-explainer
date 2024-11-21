@@ -18,6 +18,8 @@ from five_level_explainer.crews.writing_crew.writing_crew import WritingCrew
 from five_level_explainer.crews.editing_crew.editing_crew import EditingCrew
 from five_level_explainer.crews.publish_crew.publish_crew import PublishCrew
 
+from five_level_explainer.utils.env_checker import color_print, check_required_env_vars, print_missing_env_vars_message
+
 class FiveLevelExplainerFlowState(BaseModel):
     topic: str = 'Why is the sky blue?'
     date: str = date.today().strftime("%Y-%m-%d")
@@ -34,21 +36,11 @@ class FiveLevelExplainerFlowState(BaseModel):
 
 class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
 
-    def color_print(self, text: str, color: str) -> None:
-        """Print text in specified color using colorama.
-        
-        Args:
-            text (str): The text to print
-            color (str): Color from colorama.Fore (e.g., 'BLUE', 'RED', 'GREEN')
-        """
-        color_code = getattr(Fore, color.upper(), Fore.WHITE)  # Default to white if color not found
-        print(f"{color_code}{text}{Style.RESET_ALL}")
-
     @start()
-    def evaluate_topic_safety(self):
+    def evaluate_safety_of_topic(self):
         """Evaluates the topic safety, if the topic is not safe, the flow will exit."""
 
-        self.color_print(text="Evaluating topic safety...", color="BLUE")
+        color_print(text="Evaluating topic safety...", color="BLUE")
         
         result = SafetyCrew().crew().kickoff(inputs={"topic": self.state.topic})
         self.state.is_safe = result['is_safe']
@@ -56,21 +48,21 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
         self.state.votes_for_safety = result['votes_for_safety']
         self.state.votes_against_safety = result['votes_against_safety']
         
-    @router(evaluate_topic_safety)
-    def evaluate_topic_safety_router(self):
+    @router(evaluate_safety_of_topic)
+    def respond_to_safety_decision(self):
         """Evaluates the topic safety, if the topic is not safe, the flow will exit."""
 
         if not self.state.is_safe:
-            self.color_print(f"We are sorry, but we are unable to explain this topic. {self.state.reason}", "RED")
-            return None # exits from the flow
+            color_print(f"We are sorry, but we are unable to explain this topic. {self.state.reason}", "RED")
+            return "exit_flow" # exits from the flow
 
-        return "conduct_research"
+        return "start_research"
 
-    @listen("conduct_research")
-    def generate_research_report(self):
+    @listen("start_research")
+    def conduct_research(self):
         """Generates a research report on the topic."""
 
-        self.color_print(text="Conducting Research...", color="BLUE")
+        color_print(text="Conducting Research...", color="BLUE")
             
         result = (
             ResearchCrew()
@@ -80,9 +72,13 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
 
         self.state.research_report = result.raw
     
-    @listen(or_(generate_research_report, 'retry'))
-    def generate_five_level_explination(self):
-        print("Drafting Post")
+    @listen('conduct_research')
+    @listen('retry')
+    def write_explanation(self):
+        """Generates a five-level explanation for the topic."""
+
+        color_print(text="Drafting explanation...", color="BLUE")
+
         result = (
             WritingCrew()
             .crew()
@@ -95,8 +91,12 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
 
         self.state.content = result.raw
 
-    @router(generate_five_level_explination)
-    def evaluate_explanation(self):
+    @router(write_explanation)
+    def edit_explanation(self):
+        """Evaluates the final post, if the post is not valid, the flow will retry."""
+
+        color_print(text="Editing explanation...", color="BLUE")
+
         if self.state.retry_count > 5:
             return "max_retry_exceeded"
 
@@ -116,7 +116,11 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
         return "retry"
     
     @listen("publish")
-    def generate_file_name(self):
+    def finalize_explanation(self):
+        """Generates a file name for the final post."""
+
+        color_print(text="Finalizing explanation...", color="BLUE")
+
         result = PublishCrew().crew().kickoff(inputs={
             "topic": self.state.topic,
             "content": self.state.content, 
@@ -126,20 +130,26 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
         self.state.file_name = result['file_name']
 
     @listen("generate_file_name")
-    def save_result(self):
-        print("The post is valid")
-        print("Post:", self.state.content)
+    def save_explanation(self):
+        """Publishes the final post."""
+
+        color_print(text="Saving explanation...", color="BLUE")
 
         # Save the valid X post to a file
         with open(f"./output/{self.state.file_name}", "w") as file:
             file.write(self.state.content)
+        return "exit_flow"
 
     @listen("max_retry_exceeded")
     def max_retry_exceeded_exit(self):
         print("Max retry count exceeded")
         print("Content:", self.state.content)
         print("Feedback:", self.state.feedback)
+        return "exit_flow"
 
+    @listen("exit_flow")
+    def exit(self):
+        color_print("Exiting flow...", "BLUE")
 
 
 def kickoff(topic: str = 'Why are Martha Stewart and Ina Garten fighting?'):
@@ -148,33 +158,6 @@ def kickoff(topic: str = 'Why are Martha Stewart and Ina Garten fighting?'):
 
 def plot():
     FiveLevelExplainerFlow().plot()
-    
-def check_required_env_vars() -> list[str]:
-    required_env_vars = {
-        'OPENAI_API_KEY': 'OpenAI API key',
-        'SERPER_API_KEY': 'Serper API key'
-    }
-    
-    return [var for var, name in required_env_vars.items() if not os.getenv(var)]
-
-def print_missing_env_vars_message(missing_vars):
-    var_descriptions = {
-        'OPENAI_API_KEY': 'OpenAI API key',
-        'SERPER_API_KEY': 'Serper API key'
-    }
-    
-    message = "Error: Missing required environment variables:\n"
-    for var in missing_vars:
-        message += f"- {var} ({var_descriptions.get(var, '')})\n"
-    
-    message += "\nPlease set these environment variables before running the application.\n"
-    message += "You can set them by:\n"
-    message += "1. Creating a .env file in your project root\n"
-    message += "2. Setting them in your shell:\n"
-    message += "   export OPENAI_API_KEY=your_key_here\n"
-    message += "   export SERPER_API_KEY=your_key_here\n"
-    
-    print(message, end='')
 
 def main():
     parser = argparse.ArgumentParser(description='Generate a five-level explanation for any topic')
