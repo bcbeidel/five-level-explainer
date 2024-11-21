@@ -105,12 +105,11 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
             "content": self.state.content, 
             "research_report": self.state.research_report
         })
-        self.state.is_valid, self.state.feedback = result["is_valid"], result["feedback"]
-        
-        print(f"valid: {self.state.is_valid}")
-        print(f"feedback: {self.state.feedback}")
-        self.state.retry_count += 1
 
+        self.state.is_valid = result["is_valid"]
+        self.state.feedback = result["feedback"]
+        self.state.retry_count += 1
+        
         if self.state.is_valid:
             return "publish"
 
