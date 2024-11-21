@@ -31,8 +31,7 @@ class ResearchCrew():
 			config=self.agents_config['web_and_document_researcher'],
 			verbose=False,
 			tools=[
-				SerperDevTool(), 
-				CodeDocsSearchTool()
+				SerperDevTool()
 			],
 			llm='gpt-4o-mini'
 		)
@@ -43,8 +42,8 @@ class ResearchCrew():
 			config=self.agents_config['code_researcher'],
 			verbose=False,
 			tools=[
-				CodeDocsSearchTool(),
 				SerperDevTool(),
+				CodeDocsSearchTool()
 			],
 			llm='gpt-4o-mini'
 		)
@@ -90,8 +89,9 @@ class ResearchCrew():
 			tasks=self.tasks, # Automatically created by the @task decorator
 			process=Process.hierarchical,
 			verbose=True,
+			planning=True,
 			manager_agent=self.research_manager(),
-			long_term_memory = None,
+			long_term_memory=None,
             short_term_memory=None,
             entity_memory=None
 		)
