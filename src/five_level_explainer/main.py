@@ -136,7 +136,7 @@ class FiveLevelExplainerFlow(Flow[FiveLevelExplainerFlowState]):
         color_print(text="Saving explanation...", color="BLUE")
 
         # Save the valid X post to a file
-        with open(f"./output/{self.state.file_name}", "w") as file:
+        with open(f"./docs/{self.state.file_name}", "w") as file:
             file.write(self.state.content)
             file.write("\n\n")
             file.write(self.state.research_report)
