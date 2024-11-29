@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "How Are Microchips Made?"
+---
+
 # How Are Microchips Made?
 
 Microchips, also known as integrated circuits, are vital components in electronic devices, processing information and controlling functions. This post explains how microchips are made, breaking it down for anyone, no matter their level of understanding.
