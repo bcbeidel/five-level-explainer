@@ -10,7 +10,7 @@ A bot that explains arbitrary things at 5 levels.  An experiment with [CrewAI](h
 - Level 2: Can you explain it to a teenager?
 - Level 3: Can you explain it to an undergrad?
 - Level 4: Can you explain it to a grad student?
-- Level 5: Can you explain it to a college, an expert scientist?
+- Level 5: Can you explain it to an expert scientist?
 
 Explinations are put into a fixed file in the `output` directory.
 
