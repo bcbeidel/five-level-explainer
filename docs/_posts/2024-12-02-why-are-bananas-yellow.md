@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Why Are Bananas Yellow?"
+---
+
 # Why Are Bananas Yellow? A Journey Through Five Levels of Understanding
 
 ## Level 1: Can You Explain It to a Child?

@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "How to buy a house"
+---
+
 # How to Buy a House: A 5-Level Guide
 
 Buying a house can seem overwhelming, but understanding the process can simplify things. This guide breaks down the steps involved in buying a house for various audiences.
