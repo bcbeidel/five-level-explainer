@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "How to Structure a Musical"
+---
+
 # How to Structure a Musical: A 5-Level Guide
 
 Understanding how to structure a musical is key to creating an engaging performance that combines storytelling, music, and character development. This guide breaks down this intricate process for various audiences, making it accessible and informative.

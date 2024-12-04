@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "The Theory of Relativity: A 5-Level Guide?"
+---
+
 # The Theory of Relativity: A 5-Level Guide
 
 The theory of relativity, developed by Albert Einstein, transformed our understanding of the universe. This guide breaks down its key concepts for various audiences.

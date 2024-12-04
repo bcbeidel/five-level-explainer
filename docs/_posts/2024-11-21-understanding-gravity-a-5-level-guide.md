@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Understanding Gravity: A 5-Level Guide"
+---
+
 # Understanding Gravity: A 5-Level Guide
 
 Gravity is a fundamental force of nature that influences our universe in profound ways. This guide breaks down the concept of gravity for different audiences.

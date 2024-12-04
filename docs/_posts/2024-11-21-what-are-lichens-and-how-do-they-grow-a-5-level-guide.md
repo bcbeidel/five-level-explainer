@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "What Are Lichens and How Do They Grow? A 5-Level Guide"
+---
+
 # What Are Lichens and How Do They Grow? A 5-Level Guide
 
 Lichens are extraordinary organisms formed through the partnership of fungi and photosynthetic partners, such as algae or cyanobacteria. This guide simplifies the concept of lichens and their growth processes for different audiences.

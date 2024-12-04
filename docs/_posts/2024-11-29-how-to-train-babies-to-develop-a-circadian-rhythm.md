@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "How to Train Babies to Develop a Circadian Rhythm"
+---
+
 # How to Train Babies to Develop a Circadian Rhythm
 
 ## Level 1: Can you explain it to a child?  

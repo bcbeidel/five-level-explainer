@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Understanding Trains: A 5-Level Guide"
+---
+
 # Understanding Trains: A 5-Level Guide
 
 Trains are an essential part of our transportation system and have significantly impacted society. This guide aims to simplify the concept of trains for different audiences.

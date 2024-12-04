@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Common Patterns In Agentic Workflows"
+---
+
 # Understanding Common Patterns in Agentic Workflows and Prompting: A 5-Level Guide
 
 Agentic workflows and prompting are essential concepts in understanding how people and systems interact to achieve goals. This guide simplifies these ideas for different audiences, making sure everyone can grasp the fundamentals.

@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Why Do Roosters Crow in the Morning?"
+---
+
 # Why Do Roosters Crow in the Morning? A 5-Level Guide
 
 Roosters are famous for crowing, especially at dawn. But why do they do this? This guide breaks down the reasons roosters crow in the morning for different audiences.

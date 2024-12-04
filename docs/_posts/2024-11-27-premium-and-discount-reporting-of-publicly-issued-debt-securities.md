@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Premium and Discount Reporting of Publicly Issued Debt Securities"
+---
+
 # Premium and Discount Reporting of Publicly Issued Debt Securities: A 5-Level Guide
 
 Understanding how publicly issued debt securities are reported, particularly regarding premiums and discounts, is essential for investors and financial professionals. This guide simplifies these concepts for diverse audiences.

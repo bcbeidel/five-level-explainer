@@ -1,3 +1,8 @@
+---
+layout: post
+title:  "Why Do Dogs Have Wet Noses?"
+---
+
 # Why Do Dogs Have Wet Noses? A 5-Level Guide
 
 The wet noses of dogs are more than just a cute feature; they serve several important functions. This guide breaks down why dogs have wet noses, making it accessible for different audiences.
