@@ -26,8 +26,6 @@ Codebase: [https://github.com/bcbeidel/five-level-explainer](https://github.com/
 
 ### Resources
 
-- 
 - [Wired - 5 Levels Video Series](https://www.wired.com/video/series/5-levels)
 - [CrewAI: Framework for orchestrating role-playing, autonomous AI agents](https://www.crewai.com/)
 - [The Prompt Report: A Systematic Survey of Prompting Techniques](https://trigaten.github.io/Prompt_Survey_Site/)
-
