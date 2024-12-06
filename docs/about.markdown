@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-This is a toy project using [CrewAI](https://www.crewai.com/). Inspired by Wired's [5-Levels](https://www.wired.com/video/series/5-levels), where any topic from the user is turned into a 5-level explainer progressing from a child's reading level up to to an expert scientist.  My personal goals for this project are..
+This is a toy project using [CrewAI](https://www.crewai.com/). Inspired by Wired's [5-Levels](https://www.wired.com/video/series/5-levels), where any topic from the user is turned into a 5-level explainer progressing from a child's reading level up to to an expert scientist.  My personal goals for this project are...
 
 1. Develop an understanding of agentic workflows
 2. Identify common design patterns for prompts & agents
