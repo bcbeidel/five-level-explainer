@@ -12,7 +12,7 @@ This is a toy project using [CrewAI](https://www.crewai.com/). Inspired by Wired
 - Level 4: Can you explain it to a grad student?
 - Level 5: Can you explain it to an expert scientist?
 
-Explinations are put into a fixed file in the `docs` directory and hosted via a [Jekyll](https://jekyllrb.com/) static site with [GitHub pages](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll) here <[https://bcbeidel.github.io/five-level-explainer/](https://bcbeidel.github.io/five-level-explainer/)>.
+Explinations are put into a fixed file in the `docs` directory and hosted via a [Jekyll](https://jekyllrb.com/) static site with [GitHub pages](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll) here [https://bcbeidel.github.io/five-level-explainer/](https://bcbeidel.github.io/five-level-explainer/).
 
 ## Local Development Setup
 

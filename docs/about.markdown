@@ -10,6 +10,8 @@ This is a toy project using [CrewAI](https://www.crewai.com/). Inspired by Wired
 2. Identify common design patterns for prompts & agents
 3. Distill it into a short(ish) demo for work and elsewhere
 
+Codebase: [https://github.com/bcbeidel/five-level-explainer](https://github.com/bcbeidel/five-level-explainer) 
+
 ---
 
 <style>
@@ -24,6 +26,7 @@ This is a toy project using [CrewAI](https://www.crewai.com/). Inspired by Wired
 
 ### Resources
 
+- 
 - [Wired - 5 Levels Video Series](https://www.wired.com/video/series/5-levels)
 - [CrewAI: Framework for orchestrating role-playing, autonomous AI agents](https://www.crewai.com/)
 - [The Prompt Report: A Systematic Survey of Prompting Techniques](https://trigaten.github.io/Prompt_Survey_Site/)
