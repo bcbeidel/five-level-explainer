@@ -1,10 +1,10 @@
-# file_levels_explainer
+# file-level-explainer
 
-https://bcbeidel.github.io/five_level_explainer/
+https://bcbeidel.github.io/five-level-explainer/
 
 ---
 
-A bot that explains arbitrary things at 5 levels.  An experiment with [CrewAI](https://docs.crewai.com/).
+This is a toy project using [CrewAI](https://www.crewai.com/). Inspired by Wired's [5-Levels](https://www.wired.com/video/series/5-levels), where any topic from the user is turned into a 5-level explainer progressing from a child's reading level up to to an expert scientist.
 
 - Level 1: Can you explain it to a child?
 - Level 2: Can you explain it to a teenager?
@@ -12,7 +12,7 @@ A bot that explains arbitrary things at 5 levels.  An experiment with [CrewAI](h
 - Level 4: Can you explain it to a grad student?
 - Level 5: Can you explain it to an expert scientist?
 
-Explinations are put into a fixed file in the `output` directory.
+Explinations are put into a fixed file in the `docs` directory and hosted via a [Jekyll](https://jekyllrb.com/) static site with [GitHub pages](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll) here <[https://bcbeidel.github.io/five-level-explainer/](https://bcbeidel.github.io/five-level-explainer/)>.
 
 ## Local Development Setup
 
