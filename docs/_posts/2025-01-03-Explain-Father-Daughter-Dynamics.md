@@ -1,9 +1,7 @@
 ---
 layout: post
-title:  "Explain Father-Daughter Dynamics"
+title:  "The Dynamics of a Father-Daughter Relationship"
 ---
-
-# The Dynamics of a Father-Daughter Relationship
 
 ## Level 1: Can you explain it to a child?
 A father-daughter relationship is like a special friendship. Dads help their daughters learn and grow. They play games together, tell stories, and share big hugs. When a dad listens and cares, it makes the daughter feel safe and happy. A good bond helps her feel strong and loved!
